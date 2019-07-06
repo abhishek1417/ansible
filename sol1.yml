@@ -1,0 +1,19 @@
+---
+ - hosts: all
+   tasks:
+    - name: to check which python version used by ansible
+      debug: msg="my python version is {{ ansible_python_version }}"
+      
+    - name: python version used by ansible and store output in a file
+      copy: content="my python version is  {{ ansible_python_version }}" dest=/root/python.txt
+
+
+# name to module of ansible you used for checking
+#     ansible-doc -l
+#
+#
+# how to change ansible default inventory file location
+#       vim /etc/ansible/ansible.config and edit the inventory path
+#
+# how to list all the host available using ansible command line
+#     ansible hosts_name --list-hosts

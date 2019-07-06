@@ -1,0 +1,20 @@
+---
+ - hosts: all
+   vars:
+    x: date
+   tasks:
+    - name: running 
+      command: "{{ x }}"
+      register: out
+
+    - name: to print data of var
+      debug: var=out
+
+    - name: to print date command outut
+      debug: var=out.stdout
+
+    - name: to print date command output with message 
+      debug: msg="hello my date is {{ out.stdout }}"
+     
+    - name: output of date cmd to a file
+      copy: content="{{ out.stdout }}" dest=output.txt

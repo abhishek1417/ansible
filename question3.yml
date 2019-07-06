@@ -1,0 +1,45 @@
+---
+ - hosts: all
+   vars:
+    http_port: 80
+    remote_user: devops
+    local_user: student
+   tasks:
+    - name: ensure apache is at the latest version
+      yum:
+       name: httpd
+       state: latest
+
+ - hosts: all
+   tasks:
+    - name: copying html index file
+      copy:
+       src: /etc/ansible/playbook/abc.html
+       dest: /var/www/html/index.html
+       owner: apache
+
+ - hosts: all
+   tasks: 
+    - name : start service httpd
+      service:
+       name: httpd
+       state: started
+       enabled: yes
+
+ - hosts: all
+   tasks:
+    - name: use firewall
+      firewalld:
+       service: http
+       permanent: yes
+       immediate: yes
+       state: enabled
+
+ - hosts: all
+   tasks:
+    - name: restart apache
+      service: 
+       name: httpd
+       state: restarted
+
+

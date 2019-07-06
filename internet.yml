@@ -1,0 +1,35 @@
+---
+ - hosts: all
+   gather_facts: no
+   become: yes
+   tasks: 
+    - name: create repo
+      copy:
+       src: /etc/ansible/playbook/a.repo
+       dest: /etc/yum.repos.d/
+    - name: installing httpd
+      yum:
+       name: httpd
+       state: present
+    - name : start service httpd
+      service:
+       name: httpd 
+       state: started
+       enabled: yes
+    - name: use firewall
+      firewalld:
+       service: http
+       permanent: yes
+       immediate: yes
+       state: enabled
+    - name: download file
+      get_url:
+       url: ftp://192.168.10.254/pub/ldap.pem
+       dest: /var/www/html/
+
+ - hosts: localhost
+   tasks: 
+    - name: uri module
+      uri:
+       url : http://192.168.10.147
+       status_code: 200

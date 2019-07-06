@@ -1,0 +1,35 @@
+---
+ - hosts: all
+   vars:
+    x: httpd
+    y: firewalld
+    z: php
+   tasks:
+    - name: create repo
+      copy:
+       src: /home/student/playbook/a.repo
+       dest: /etc/yum.repos.d/
+    - name: install packages
+      yum:
+       name: "{{ item }}"
+       state: present
+      loop: 
+       - "{{ x }}"
+       - "{{ y }}"
+       - "{{ z }}"
+
+    - name: enable services of packages
+      service:
+       name: "{{ item }}"
+       state: started
+       enabled: yes
+      loop:
+       - "{{ x }}"
+       - "{{ y }}"
+       
+        
+    - name: copy html file
+      copy:
+       src: /home/student/playbook/abc.html
+       dest: /var/www/html/index.php
+

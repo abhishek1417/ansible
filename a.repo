@@ -1,0 +1,7 @@
+[appstream]
+baseurl=ftp://192.168.10.254/pub/rhel8/AppStream/
+gpgcheck=0
+
+[baseOS]
+baseurl=ftp://192.168.10.254/pub/rhel8/BaseOS/
+gpgcheck=0

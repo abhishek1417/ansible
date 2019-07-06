@@ -1,0 +1,9 @@
+---
+ - hosts: all
+   tasks:
+    - name: check python version
+      debug: msg="my python version is {{ ansible_python_version }}"
+      
+    - name: storing in file
+      copy: content="my python version is  {{ ansible_python_version }}" dest=/root/python.txt
+ 

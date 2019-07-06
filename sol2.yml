@@ -1,0 +1,32 @@
+---
+- hosts: all
+  remote_user: devops
+  tasks:
+  - name: create repo
+    copy:
+     src: /home/student/playbook/a.repo
+     dest: /etc/yum.repos.d/
+  - name: ensure apache is at the latest version
+    yum:
+     name: httpd
+     state: latest
+  - name: copy html index file
+    copy:
+     src: /home/student/playbook/abc.html
+     dest: /var/www/html/index.html
+     owner: apache
+  - name : start service httpd
+    service:
+     name: httpd
+     state: started
+     enabled: yes
+  - name: use firewall
+    firewalld:
+     service: http
+     permanent: yes
+     immediate: yes
+     state: enabled
+  - name: restart apache
+    service: 
+      name: httpd
+      state: restarted

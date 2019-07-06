@@ -1,0 +1,23 @@
+---
+ - hosts: localhost
+   tasks: 
+    - name: using system facts get OS name
+      debug: msg="my  OS name is {{ ansible_distribution }}"
+
+    - name: using system facts get IP address
+      debug: msg="my os IP details are {{ ansible_default_ipv4.address }}"
+
+    - name: using system facts get MAC address
+      debug: msg="my os MAC details are {{ ansible_default_ipv4.macaddress }}"
+
+    - name:  using system facts get IP address
+      copy:  content="my os IP details are {{ ansible_default_ipv4.address }}" dest=/root/ip.txt
+   
+    - name:  first ip is 
+      debug:  msg="my one IP is {{ ansible_all_ipv4_addresses[0] }}"
+
+
+ - hosts:  localhost
+   tasks:
+    - name: install
+      yum: name=telnet
